@@ -18,4 +18,9 @@ class Employee extends Model
     public function diagnos(){
         return $this->hasMany(Diagnos::class);
     }
+    
+    public function getFullnameAttribute()
+    {
+        return ucwords("{$this->first_name} {$this->middle_name} {$this->last_name}");
+    }
 }

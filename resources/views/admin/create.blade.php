@@ -20,10 +20,24 @@
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.store') }}">@csrf
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">First name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="first_name" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">Middle name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="middle_name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">Last name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="last_name" required>
+                    </div>
+                  </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Fullname</label>
-                        <input type="text" class="form-control" id="inputEmail4" name="name" required>
+                        <label for="inputEmail4">Employee ID NO.</label>
+                        <input type="text" class="form-control" id="inputEmail4" name="id_no" required>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">Birthdate</label>
@@ -58,6 +72,6 @@
 
 @section('js')
     <script>
-        $(".alert").fadeOut(5000)
+        $(".alert").fadeOut(10000)
     </script>
 @endsection

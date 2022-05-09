@@ -33,7 +33,7 @@
             <table class="mt-4" width="100%">
                 <tr>
                     <td width="40%">NAME: </td>
-                    <td width="60%" style="border-bottom:1px solid black">{{ $data->name }}</td>
+                    <td width="60%" style="border-bottom:1px solid black">{{ $data->fullname }}</td>
                 </tr>
                 <tr>
                     <td width="40%">ADDRESS: </td>

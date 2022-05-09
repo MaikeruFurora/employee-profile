@@ -14,9 +14,9 @@ class DiagnosController extends Controller
 
     public function list(Request $request,$id){
         $columns = array( 
-            0 =>'name', 
-            1 =>'recommendation',
             1 =>'created_at',
+            0 =>'diagnos', 
+            1 =>'recommendation',
             5 =>'id',
         );
         
@@ -31,7 +31,7 @@ class DiagnosController extends Controller
 
         if(empty($request->input('search.value')))
         {          
-            $posts = Diagnos::select('diagnos.id','diagnos.created_at','employees.name','diagnos.recommendation','diagnos.diagnos')
+            $posts = Diagnos::select('diagnos.id','diagnos.created_at','diagnos.recommendation','diagnos.diagnos')
             ->join('employees','diagnos.employee_id','employees.id')->where('employee_id',$id)->offset($start)
                             ->limit($limit)
                             ->orderBy($order,$dir)
@@ -40,7 +40,7 @@ class DiagnosController extends Controller
          } else {
             $search = $request->input('search.value'); 
 
-            $posts =  Diagnos::select('diagnos.id','diagnos.created_at','employees.name','diagnos.recommendation','diagnos.diagnos')
+            $posts =  Diagnos::select('diagnos.id','diagnos.created_at','diagnos.recommendation','diagnos.diagnos')
             ->join('employees','diagnos.employee_id','employees.id')->where('employee_id',$id)->where('diagnos', 'LIKE',"%{$search}%")
                             ->offset($start)
                             ->limit($limit)
@@ -48,7 +48,7 @@ class DiagnosController extends Controller
                             ->latest()
                             ->get();
 
-            $totalFiltered =Diagnos::select('diagnos.id','diagnos.created_at','employees.name','diagnos.recommendation','diagnos.diagnos')
+            $totalFiltered =Diagnos::select('diagnos.id','diagnos.created_at','diagnos.recommendation','diagnos.diagnos')
             ->join('employees','diagnos.employee_id','employees.id')->where('employee_id',$id)->where('diagnos', 'LIKE',"%{$search}%")
                                 ->offset($start)
                                 ->limit($limit)
@@ -61,9 +61,9 @@ class DiagnosController extends Controller
     if(!empty($posts)) {
         foreach ($posts as $post) {
 
+            $nestedData['created_at'] = $post->created_at->format('F j, Y');
         $nestedData['diagnos'] = $post->diagnos;
         $nestedData['recommendation'] = $post->recommendation;
-        $nestedData['created_at'] = $post->created_at->format('F j, Y');
         $nestedData['id'] = $post->id;
         $data[] = $nestedData;
 

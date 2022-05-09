@@ -20,10 +20,25 @@
             </div>
             <div class="card-body">
                 <form method="POST" action="{{ route('admin.store') }}">@csrf
+                  <input type="hidden" name="id" value="{{ $employee->id }}">
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">First name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="first_name" value="{{ $employee->first_name }}" required>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">Middle name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="middle_name" value="{{ $employee->middle_name }}">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">Last name</label>
+                      <input type="text" class="form-control" id="inputEmail4" name="last_name" value="{{ $employee->last_name }}" required>
+                    </div>
+                  </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
-                        <label for="inputEmail4">Fullname</label>
-                        <input type="text" class="form-control" id="inputEmail4" name="name" value="{{ $employee->name }}" required>
+                        <label for="inputEmail4">Employee ID NO.</label>
+                        <input type="text" class="form-control" id="inputEmail4" name="id_no" value="{{ $employee->id_no }}" required>
                       </div>
                       <div class="form-group col-md-6">
                         <label for="inputPassword4">Birthdate</label>

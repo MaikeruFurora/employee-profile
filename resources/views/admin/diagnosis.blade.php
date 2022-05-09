@@ -9,7 +9,7 @@
                     <a href="{{ route('admin.index') }}" class="btn btn-dark btn-sm"><i class="fas fa-arrow-left"></i> Back</a>&nbsp;
                     <button class="btn btn-primary btn-sm btnNew"><i class="fas fa-folder-open"></i> New Diagnosis</button>
                 </div>
-                <h5><i class="fas fa-folder-open"></i> Record of <b>{{$employee->name}}</b></h5>
+                <h6><i class="fas fa-folder-open"></i> Record of <b>{{$employee->fullname}}</b></h6>
             </div>
             <div class="card-body">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -30,9 +30,9 @@
                         <table id="datatable" class="table table-striped table-bordered mt-3" style="font-size: 12px">
                             <thead>
                                 <tr>
+                                    <th width="10%">Date</th>
                                     <th width="30%">Diagnosis</th>
                                     <th width="30%">Recommendation</th>
-                                    <th width="10%">Date</th>
                                     <th width="15%">Action</th>
                                 </tr>
                             </thead>
@@ -87,10 +87,10 @@
             data: { _token: $('input[name="_token"]').val() }
         },
         columns: [
+            { data: "created_at" },
             { data: "diagnos" },
             { data: "recommendation" },
           
-            { data: "created_at" },
             {
                 data: null,
                 render: function(data) {

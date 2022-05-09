@@ -17,6 +17,7 @@
                 <table id="datatable" class="table table-bordered table-striped" >
                     <thead>
                         <tr>
+                            <th>Emp No.</th>
                             <th>Fullname</th>
                             <th>Sex</th>
                             <th>Age</th>

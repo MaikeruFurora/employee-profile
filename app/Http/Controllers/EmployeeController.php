@@ -25,28 +25,38 @@ class EmployeeController extends Controller
 
 
     public function store(Request $request){
-        $data = Employee::create([
-            'name' => $request->name, 
-            'sex' => $request->sex,
-            'contact_no' => $request->contact_no,
-            'birthday' => $request->birthdate,
-            'address' => $request->address
-        ]);
 
-        if($data){
-            return back()->with('msg',ucwords($data['name']).' was successfully added!');
+        $count = Employee::where('id_no',$request->id_no)->where('first_name',$request->first_name)->count();
+        if ($count>0) {
+            $data = Employee::updateorcreate(['id'=>$request->id],[
+                'first_name' => $request->first_name, 
+                'middle_name' => $request->middle_name, 
+                'last_name' => $request->last_name, 
+                'id_no' => $request->id_no, 
+                'sex' => $request->sex,
+                'contact_no' => $request->contact_no,
+                'birthday' => $request->birthdate,
+                'address' => $request->address
+            ]);
+            if($data){
+                return back()->with('msg',ucwords($data['name']).' was successfully Saved!');
+            }
+        }else{
+            return back()->with('msg',strtoupper($request->first_name).' IS ALREADY EXIST!');
         }
+
         
     }
 
     public function list(Request $request){
         $columns = array( 
-            0 =>'name', 
-            1 =>'sex',
-            2 =>'contact_no',
-            3 =>'birthday',
-            4 =>'address',
-            5 =>'id',
+            0 =>'id_no', 
+            1 =>'first_name', 
+            2 =>'sex',
+            3 =>'contact_no',
+            4 =>'birthday',
+            5 =>'address',
+            6 =>'id',
         );
         
         $totalData = Employee::count();
@@ -69,7 +79,10 @@ class EmployeeController extends Controller
         else {
         $search = $request->input('search.value'); 
 
-        $posts =  Employee::where('name', 'LIKE',"%{$search}%")
+        $posts =  Employee::where('first_name', 'LIKE',"%{$search}%")
+                        ->orWhere('middle_name', 'LIKE',"%{$search}%")
+                        ->orWhere('id_no', 'LIKE',"%{$search}%")
+                        ->orWhere('last_name', 'LIKE',"%{$search}%")
                         ->orWhere('address', 'LIKE',"%{$search}%")
                         ->orWhere('birthday', 'LIKE',"%{$search}%")
                         ->orWhere('sex', 'LIKE',"%{$search}%")
@@ -80,7 +93,10 @@ class EmployeeController extends Controller
                         ->latest()
                         ->get();
 
-        $totalFiltered =Employee::where('name', 'LIKE',"%{$search}%")
+        $totalFiltered =Employee::where('first_name', 'LIKE',"%{$search}%")
+                            ->orWhere('id_no', 'LIKE',"%{$search}%")
+                            ->orWhere('middle_name', 'LIKE',"%{$search}%")
+                            ->orWhere('last_name', 'LIKE',"%{$search}%")
                             ->orWhere('birthday', 'LIKE',"%{$search}%")
                             ->orWhere('address', 'LIKE',"%{$search}%")
                             ->orWhere('sex', 'LIKE',"%{$search}%")
@@ -96,7 +112,8 @@ class EmployeeController extends Controller
         if(!empty($posts)) {
             foreach ($posts as $post) {
 
-            $nestedData['name'] = $post->name;
+                $nestedData['id_no'] = $post->id_no;
+            $nestedData['first_name'] = $post->first_name.' '.$post->middle_name.' '.$post->last_name;
             $nestedData['sex'] = $post->sex;
             $nestedData['contact_no'] = $post->contact_no;
             $nestedData['birthday'] = $post->birthday;

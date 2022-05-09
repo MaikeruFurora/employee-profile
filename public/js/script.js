@@ -10,7 +10,8 @@ let datatableRule = $("#datatable").DataTable({
         data: { _token: $('input[name="_token"]').val() }
     },
     columns: [
-        { data: "name" },
+        { data: "id_no" },
+        { data: "first_name" },
         { data: "sex" },
         {
             data: null,
@@ -25,8 +26,8 @@ let datatableRule = $("#datatable").DataTable({
             data: null,
             render: function(data) {
                 return `
-                 <a style="font-size:12px" class="btn btn-warning btn-sm pl-3 pr-3" href="employee/edit/${data.id}"><i class="fas fa-edit"></i> Edit</a>
-                 <a style="font-size:12px" class="btn btn-secondary btn-sm pl-3 pr-3"href="employee/diagnosis/${data.id}"><i class="fas fa-stethoscope"></i> Diagnosis</a>
+                 <a style="font-size:12px" class="btn btn-warning btn-sm pl-2 pr-2" href="employee/edit/${data.id}"><i class="fas fa-edit"></i> Edit</a>
+                 <a style="font-size:12px" class="btn btn-secondary btn-sm"href="employee/diagnosis/${data.id}"><i class="fas fa-stethoscope"></i> Diagnosis</a>
                  `
             }
         },
@@ -51,5 +52,5 @@ let computeAge = (data) => {
     //now calculate the age of the user  
     let age = Math.abs(year - 1970);
 
-    return age + " years old";
+    return age;
 }
